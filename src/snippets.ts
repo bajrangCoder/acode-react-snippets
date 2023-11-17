@@ -187,147 +187,302 @@ export const snippets: Snippet[] = [
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
-    // imports snippet
+    // basics
     {
-        prefix: "imr",
-        snippet:
-            "import React from 'react'",
-        type: "ImportReact",
+        prefix: "exp",
+        snippet: "export default ${1}",
+        type: "ExportDefault",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imrd",
-        snippet:
-            "import ReactDOM from 'react-dom'",
-        type: "ImportReactDom",
+        prefix: "exd",
+        snippet: "export { ${2} } from '${1}'",
+        type: "ExportDestructing",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imrc",
-        snippet:
-            "import React, { Component } from 'react'",
-        type: "ImportReactWithComponent",
+        prefix: "exa",
+        snippet: "export { ${2} as ${3} } from '${1}'",
+        type: "ExportAs",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imrcp",
-        snippet:
-            "import React, { Component } from 'react'\nimport PropTypes from 'prop-types'",
-        type: "ImportReactWithComponentAndPropTypes",
+        prefix: "enf",
+        snippet: "export const ${1} = (${2}) => {${3}}",
+        type: "ExportNamedFunction",
+        description: "Export named function",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imrpc",
-        snippet:
-            "import React, { PureComponent } from 'react'",
-        type: "ImportReactWithPureComponent",
+        prefix: "edf",
+        snippet: "export default (${1}) => {${2}}",
+        type: "ExportDefaultFunction",
+        description: "Export default function",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imrpcp",
-        snippet:
-            "import React, { PureComponent } from 'react'\nimport PropTypes from 'prop-types'",
-        type: "ImportReactWithPureComponent&PropTypes",
+        prefix: "ednf",
+        snippet: "export default function ${1}(${2}) {${3}}",
+        type: "ExportDefaultNamedFunction",
+        description: "Export default named function",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imrm",
-        snippet:
-            "import React, { memo } from 'react'",
-        type: "ImportReactWithMemo",
+        prefix: "met",
+        snippet: "${1} = (${2}) => {${3}}",
+        type: "Method",
+        description: "Creates a method inside a class",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imrmp",
-        snippet:
-            "import React, { memo } from 'react'\nimport PropTypes from 'prop-types'",
-        type: "ImportReactWithMemo&PropTypes",
+        prefix: "pge",
+        snippet: "get ${1}() {\n  return this.${2}\n}",
+        type: "PropertyGet",
+        description: "Creates a getter property inside a class",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "impt",
-        snippet:
-            "import PropTypes from 'prop-types'",
-        type: "ImportPropTypes",
-        fileTypes: ["jsx", "tsx"]
-    },
-    // react-router
-    {
-        prefix: "imbr",
-        snippet:
-            "import { BrowserRouter as Router } from 'react-router-dom'",
-        type: "ReactRouter",
+        prefix: "pse",
+        snippet: "set ${1}(${2}) {${3}}",
+        type: "PropertySet",
+        description: "Creates a setter property inside a class",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imrr",
-        snippet:
-            "import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'",
-        type: "ReactRouterWithRouteAndNavLink",
+        prefix: "fre",
+        snippet: "${1}.forEach(${2} => {${3}})",
+        type: "ForEach",
+        description: "Creates a forEach statement",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imbrc",
-        snippet:
-            "import { Route, Switch, NavLink, Link } from 'react-router-dom'",
-        type: "ImportRouterSetup",
+        prefix: "fof",
+        snippet: "for(let ${1} of ${2}) {${3}}",
+        type: "ForOf",
+        description: "Iterating over property names of iterable objects",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imbrs",
-        snippet:
-            "import { Switch } from 'react-router-dom'",
-        type: "ImportRouterSwitch",
+        prefix: "fin",
+        snippet: "for(let ${1} in ${2}) {${3}}",
+        type: "ForIn",
+        description: "Iterating over property values of iterable objects",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imbrl",
-        snippet:
-            "import { Link } from 'react-router-dom'",
-        type: "ImportRouterLink",
+        prefix: "anfn",
+        snippet: "(${1}) => { ${2} }",
+        type: "AnonymousFunction",
+        description: "Creates an anonymous function",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imbrnl",
-        snippet:
-            "import { NavLink } from 'react-router-dom'",
-        type: "ImportRouterNavLink",
-        fileTypes: ["jsx", "tsx"]
-    },
-    // other imports
-    {
-        prefix: "imp",
-        snippet:
-            "import ${2:Name} from '${1}'",
-        type: "Import",
+        prefix: "nfn",
+        snippet: "const ${1} = (${2}) => { ${3} }",
+        type: "NamedFunction",
+        description: "Creates a named function",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imn",
-        snippet:
-            "import '${1}'",
-        type: "ImportNoModuleName",
+        prefix: "dob",
+        snippet: "const {${2}} = ${1}",
+        type: "DestructingObject",
+        description:
+            "Creates and assigns a local variable using object destructing",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "imd",
-        snippet:
-            "import { ${2:Component} } from '${1}'",
-        type: "ImportDestructing",
+        prefix: "dar",
+        snippet: "const [${2}] = ${1}",
+        type: "DestructingArray",
+        description:
+            "Creates and assigns a local variable using array destructing",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "ime",
+        prefix: "sti",
         snippet:
-            "import * as ${2:comp} from '${1}'",
-        type: "ImportEverything",
+            "setInterval(() => { ${1} }, ${2})",
+        type: "SetInterval",
+        description: "Executes the given function at specified intervals",
         fileTypes: ["jsx", "tsx"]
     },
     {
-        prefix: "ima",
+        prefix: "sto",
         snippet:
-            "import { ${2:Component} as ${3} } from '${1}'",
-        type: "ImportAs",
+            "setTimeout(() => { ${1} }, ${2})",
+        type: "SetTimeOut",
+        description: "Executes the given function after the specified delay",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "prom",
+        snippet:
+            "return new Promise((resolve, reject) => { ${1} })",
+        type: "Promise",
+        description:
+            "Creates and returns a new Promise in the standard ES7 syntax",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "cp",
+        snippet: "const { ${1} } = this.props",
+        type: "DestructProps",
+        description:
+            "Creates and assigns a local variable using props destructing",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "cs",
+        snippet: "const { ${1} } = this.state",
+        type: "DestructState",
+        description:
+            "Creates and assigns a local variable using state destructing",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "rconst",
+        snippet:
+            "constructor(props) {\n  super(props)\n  this.state = {\n     ${1}\n  }\n}",
+        type: "ClassConstructor",
+        description:
+            "Adds a default constructor for it<code>('', () => {})</code>the class that contains props as arguments",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "est",
+        snippet: "state = { ${1} }",
+        type: "EmptyState",
+        description: "Creates empty state object. To be used in a constructor.",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "cdm",
+        snippet: "componentDidMount() { ${1} }",
+        type: "ComponentDidMount",
+        description:
+            "Invoked once, only on the client (not on the server), immediately after the initial rendering occurs.",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "scu",
+        snippet:
+            "shouldComponentUpdate(nextProps, nextState) { ${1} }",
+        type: "ShouldComponentUpdate",
+        description:
+            "Invoked before rendering when new props or state are being received. ",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "cdup",
+        snippet:
+            "componentDidUpdate(prevProps, prevState) { ${1}}",
+        type: "ComponentDidUpdate",
+        description:
+            "Invoked immediately after the component's updates are flushed to the DOM.",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "cwun",
+        snippet: "componentWillUnmount() {${1} }",
+        type: "ComponentWillUnmount",
+        description:
+            "Invoked immediately before a component is unmounted from the DOM.",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "gdsfp",
+        snippet:
+            "static getDerivedStateFromProps(props, state) {${1}}",
+        type: "GetDerivedStateFromProps",
+        description:
+            "Invoked right before calling the render method, both on the initial mount and on subsequent updates.",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "gsbu",
+        snippet:
+            "getSnapshotBeforeUpdate = (prevProps, prevState) => {${1}}",
+        type: "GetSnapshotBeforeUpdate",
+        description:
+            "Called right before mutations are made (e.g. before the DOM is updated)",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "rcontext",
+        snippet: "const ${1} = React.createContext()",
+        type: "CreateContext",
+        description: "Create React context",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "cref",
+        snippet: "this.${1}Ref = React.createRef()",
+        type: "CreateRef",
+        description: "Create ref statement used inside constructor",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "sst",
+        snippet:
+            "this.setState((state, props) => { return { ${1} }})",
+        type: "ComponentSetStateObject",
+        description: "Performs a shallow merge of nextState into current state",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ssf",
+        snippet:
+            "this.setState((state, props) => { return { ${1} }})",
+        type: "ComponentSetStateFunc",
+        description: "Performs a shallow merge of nextState into current state",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "props",
+        snippet: "this.props.${1}",
+        type: "ComponentProps",
+        description: "Access component's props",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "state",
+        snippet: "this.state.${1}",
+        type: "ComponentState",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "bnd",
+        snippet:
+            "this.${1} = this.${1}.bind(this)",
+        type: "BindThis",
+        description: "Binds this to a method",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "cmmb",
+        snippet: "/**\n * ${1}\n */",
+        type: "CommentBigBlock",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "hocredux",
+        snippet:
+            "import React from 'react'\nimport { connect } from 'react-redux'\nimport PropTypes from 'prop-types'\n\nexport const mapStateToProps = state => ({})\n\nexport const mapDispatchToProps = {}\n\nexport const ${1} = (WrappedComponent) => {\n  const hocComponent = ({ ...props }) => <WrappedComponent {...props} />\n\n  hocComponent.propTypes = {}\n\n  return hocComponent\n}\n\nexport default WrapperComponent => connect(mapStateToProps, mapDispatchToProps)(${1}(WrapperComponent))\n",
+        type: "HocComponentWithRedux",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "hoc",
+        snippet:
+            "import React from 'react'\nimport PropTypes from 'prop-types'\n\nexport default (WrappedComponent) => {\n  const hocComponent = ({ ...props }) => <WrappedComponent {...props} />\n\n  hocComponent.propTypes = {}\n\n  return hocComponent\n}\n",
+        type: "HocComponent",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tpf",
+        snippet: "typeof ${1}",
+        type: "TypeofSnippet",
         fileTypes: ["jsx", "tsx"]
     }
 ];
