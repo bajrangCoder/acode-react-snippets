@@ -187,56 +187,6 @@ export const snippets: Snippet[] = [
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
-    {
-        prefix: "useContextSnippet",
-        snippet: `const ${1} = useContext(${2})`,
-        type: "Hooks",
-        fileTypes: ["jsx", "tsx"]
-    },
-    {
-        prefix: "useStateSnippet",
-        snippet: `const [${1}, set${1}] = useState(${2})`,
-        type: "Hooks",
-        fileTypes: ["jsx", "tsx"]
-    },
-    {
-        prefix: "useReducerSnippet",
-        snippet: `const [state, dispatch] = useReducer(${1}, ${2}, ${3})`,
-        type: "Hooks",
-        fileTypes: ["jsx", "tsx"]
-    },
-    {
-        prefix: "useCallbackSnippet",
-        snippet: "useCallback(\n  () => {\n    ${1}\n  },\n  [${2}],\n)\n",
-        type: "Hooks",
-        fileTypes: ["jsx", "tsx"]
-    },
-    {
-        prefix: "useMemoSnippet",
-        snippet: `useMemo(() => ${1}, [${2}])`,
-        type: "Hooks",
-        fileTypes: ["jsx", "tsx"]
-    },
-    {
-        prefix: "useRefSnippet",
-        snippet: `const ${1} = useRef(${2})`,
-        type: "Hooks",
-        fileTypes: ["jsx", "tsx"]
-    },
-    {
-        prefix: "useImperativeHandleSnippet",
-        snippet:
-            "useImperativeHandle(\n  ${1},\n  () => {\n    ${2}\n  },\n  [${3}],\n)\n",
-        type: "Hooks",
-        fileTypes: ["jsx", "tsx"]
-    },
-    {
-        prefix: "useLayoutEffectSnippet",
-        snippet:
-            "useLayoutEffect(() => {\n  ${1}\n\n  return () => {\n    ${2}\n  };\n}, [${3}])\n",
-        type: "Hooks",
-        fileTypes: ["jsx", "tsx"]
-    },
     // basics
     {
         prefix: "exp",
