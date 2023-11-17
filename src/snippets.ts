@@ -195,7 +195,7 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "useStateSnippet",
-        snippet: `const [${1}, set${Placeholders.Capitalize}] = useState(${2})`,
+        snippet: `const [${1}, set${1}] = useState(${2})`,
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
