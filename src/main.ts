@@ -12,6 +12,7 @@ class ReactSnippet {
 
     constructor() {
         this.setVariables();
+        this.initializeAutocompletion(snippets || []);
     }
 
     private setVariables() {
@@ -54,10 +55,18 @@ class ReactSnippet {
                                 type: "snippet",
                                 docHTML: snippet.description || ""
                             };
-
-                            return extraSyntaxHighlightsInstalled
-                                ? { ...baseSnippet, icon: "icon react-snippet-icon" }
-                                : baseSnippet;
+                            if (
+                                typeof extraSyntaxHighlightsInstalled !==
+                                    "undefined" &&
+                                extraSyntaxHighlightsInstalled
+                            ) {
+                                return {
+                                    ...baseSnippet,
+                                    icon: "icon react-snippet-icon"
+                                };
+                            } else {
+                                return baseSnippet;
+                            }
                         })
                     );
                 } else {
@@ -85,8 +94,7 @@ class ReactSnippet {
         }
         `;
         document.head.append(styling);
-        acode.addIcon('react-snippet-icon', this.baseUrl+"icon.png");
-        this.initializeAutocompletion(snippets || []);
+        acode.addIcon("react-snippet-icon", this.baseUrl + "icon.png");
     }
 
     async destroy() {
