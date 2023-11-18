@@ -1003,5 +1003,69 @@ export const snippets: Snippet[] = [
         type: "PropTypeAny",
         description: "Any prop type",
         fileTypes: ["jsx", "tsx"]
-    }
+    },
+  {
+    prefix: 'desc',
+    snippet: "describe('${1:first}', () => { ${2:second} })",
+    type: 'describeBlock',
+    description: 'Testing `describe` block',
+    fileTypes: ['jsx', 'tsx'],
+  },
+  {
+    prefix: 'test',
+    snippet: "test('should ${1:first}', () => { ${2:second} })",
+    type: 'TestBlock',
+    description: 'Testing `test` block',
+    fileTypes: ['jsx', 'tsx'],
+  },
+  {
+    prefix: 'testa',
+    snippet: "test('should ${1:first}', async () => { ${2:second} })",
+    type: 'TestAsyncBlock',
+    description: 'Testing `asynchronous test` block',
+    fileTypes: ['jsx', 'tsx'],
+  },
+  {
+    prefix: 'tit',
+    snippet: "it('should ${1:first}', () => { ${2:second} })",
+    type: 'ItBlock',
+    description: 'Testing `it` block',
+    fileTypes: ['jsx', 'tsx'],
+  },
+  {
+    prefix: 'tita',
+    snippet: "it('should ${1:first}', async () => { ${2:second} })",
+    type: 'ItAsyncBlock',
+    description: 'Testing asynchronous `it` block',
+    fileTypes: ['jsx', 'tsx'],
+  },
+  {
+    prefix: 'stest',
+    snippet:
+      "import React from 'react'\nimport renderer from 'react-test-renderer'\n\nimport { ${1:FileName} } from '../${1:FileName}'\n\ndescribe('<${1:FileName} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(<${1:FileName} {...defaultProps} />)\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
+    type: 'SetupReactTest',
+    fileTypes: ['jsx', 'tsx'],
+  },
+  {
+    prefix: 'sntest',
+    snippet:
+      "import 'react-native'\nimport React from 'react'\nimport renderer from 'react-test-renderer'\n\nimport ${1:FileName} from '../${1:FileName}'\n\ndescribe('<${1:FileName} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(<${1:FileName} {...defaultProps} />)\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
+    type: 'SetupReactNativeTest',
+    fileTypes: ['jsx', 'tsx'],
+  },
+  {
+    prefix: 'srtest',
+    snippet:
+      "import React from 'react'\nimport renderer from 'react-test-renderer'\nimport { Provider } from 'react-redux'\n\nimport store from '~/store'\nimport { ${1:FileName} } from '../${1:FileName}'\n\ndescribe('<${1:FileName} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(\n    <Provider store={store}>\n     <${1:FileName} {...defaultProps} />\n    </Provider>,\n  )\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
+    type: 'SetupReactComponentTestWithRedux',
+    description: 'Create test component',
+    fileTypes: ['jsx', 'tsx'],
+  },
+  {
+    prefix: 'snrtest',
+    snippet:
+      "import 'react-native'\nimport React from 'react'\nimport renderer from 'react-test-renderer'\nimport { Provider } from 'react-redux'\n\nimport store from '~/store'\nimport ${1:FileName} from '../${1:FileName}'\n\ndescribe('<${1:FileName} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(\n    <Provider store={store}>\n      <${1:FileName} {...defaultProps} />\n    </Provider>,\n  )\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
+    type: 'SetupReactNativeTestWithRedux',
+    fileTypes: ['jsx', 'tsx'],
+  },
 ];
