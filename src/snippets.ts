@@ -1068,4 +1068,61 @@ export const snippets: Snippet[] = [
     type: 'SetupReactNativeTestWithRedux',
     fileTypes: ['jsx', 'tsx'],
   },
+  //Redux snippets
+  {
+    prefix: "redux",
+    snippet:
+      "import { connect } from 'react-redux'",
+    description: "Redux: Import connect from react-redux",
+    type: "importReduxConnect",
+    fileTypes: ["jsx", "tsx"],
+  },
+  {
+    prefix: "rxaction",
+    snippet:
+      "export const ${1} = (payload) => ({\n  type: ${2},\n  payload\n})\n",
+    description: "Redux: Create a Redux action",
+    type: "reduxAction",
+    fileTypes: ["jsx", "tsx"],
+  },
+  {
+    prefix: "rxconst",
+    snippet:
+      "export const ${1} = '${1}'",
+    description: "Redux: Create a Redux constant",
+    type: "reduxConst",
+    fileTypes: ["jsx", "tsx"],
+  },
+  {
+    prefix: "rxreducer",
+    snippet:
+      "const initialState = {}\n\nexport default (state = initialState, { type, payload }) => {\n  switch (type) {\n    case ${1}:\n      return { ...state, ...payload }\n    default:\n      return state\n  }\n}\n",
+    description: "Redux: Create a Redux reducer",
+    type: "reduxReducer",
+    fileTypes: ["jsx", "tsx"],
+  },
+  {
+    prefix: "rxselect",
+    snippet:
+      "import { createSelector } from 'reselect'\n\nexport const ${1} = state => state.${2}",
+    description: "Redux: Create a Redux selector using Reselect",
+    type: "reduxSelector",
+    fileTypes: ["jsx", "tsx"],
+  },
+  {
+    prefix: "rxslice",
+    snippet:
+      "import { createSlice } from '@reduxjs/toolkit'\n\nconst initialState = {}\n\nconst ${FILE_NAME} = createSlice({\n  name: ${2},\n  initialState,\n reducers: {}\n});\n\nexport const {} = ${Placeholders.FileName}.actions\n\nexport default ${Placeholders.FileName}.reducer",
+    description: "Redux: Create a Redux slice using @reduxjs/toolkit",
+    type: "reduxSlice",
+    fileTypes: ["jsx", "tsx"],
+  },
+  {
+    prefix: "reduxmap",
+    snippet:
+      "const mapStateToProps = (state) => ({})\n\nconst mapDispatchToProps = {}",
+    description: "Redux: Map state and dispatch to props",
+    type: "mappingToProps",
+    fileTypes: ["jsx", "tsx"],
+  },
 ];
