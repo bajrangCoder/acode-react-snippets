@@ -137,7 +137,7 @@ export const snippets: Snippet[] = [
     {
         prefix: "rccp",
         snippet:
-            "import React, { Component } from 'react'\nimport PropTypes from 'prop-types'\n\nexport default class ${FILE_NAME} extends Component {\n  static propTypes = {${1}\n  }\n  render() {\n    return (\n      <div>$2</div>\n    )\n  }\n}",
+            "import React, { Component } from 'react'\nimport PropTypes from 'prop-types'\n\nexport default class ${FILE_NAME} extends Component {\n  static propTypes = {${1:first}\n  }\n  render() {\n    return (\n      <div>$2</div>\n    )\n  }\n}",
         type: "Components",
         description:
             "Creates a <strong>React component</strong> class with PropTypes and ES7 module system",
@@ -155,7 +155,7 @@ export const snippets: Snippet[] = [
     {
         prefix: "rcreduxp",
         snippet:
-            "import React, { Component } from 'react'\nimport PropTypes from 'prop-types'\nimport { connect } from 'react-redux'\n\nexport class ${FILE_NAME} extends Component {\n  static propTypes = {${1}\n  }\n  render() {\n    return (\n      <div>$2</div>\n    )\n  }\n}\n\nconst mapStateToProps = (state) => ({})\n\nconst mapDispatchToProps = {}\n\nexport default connect(mapStateToProps, mapDispatchToProps)(${FILE_NAME})",
+            "import React, { Component } from 'react'\nimport PropTypes from 'prop-types'\nimport { connect } from 'react-redux'\n\nexport class ${FILE_NAME} extends Component {\n  static propTypes = {${1:first}\n  }\n  render() {\n    return (\n      <div>$2</div>\n    )\n  }\n}\n\nconst mapStateToProps = (state) => ({})\n\nconst mapDispatchToProps = {}\n\nexport default connect(mapStateToProps, mapDispatchToProps)(${FILE_NAME})",
         type: "Components",
         description:
             "Creates a <strong>React component</strong> class with PropTypes, connected redux and ES7 module system",
@@ -173,7 +173,7 @@ export const snippets: Snippet[] = [
     {
         prefix: "rfcreduxp",
         snippet:
-            "import React from 'react'\nimport PropTypes from 'prop-types'\nimport { connect } from 'react-redux'\n\nconst ${FILE_NAME} = (props) => {\n  return (\n    <div>$1</div>\n  )\n}\n\nconst mapStateToProps = (state) => ({})\n\nconst mapDispatchToProps = {}\n\n${FILE_NAME}.propTypes = {${2}\n}\n\nexport default connect(mapStateToProps, mapDispatchToProps)(${FILE_NAME})",
+            "import React from 'react'\nimport PropTypes from 'prop-types'\nimport { connect } from 'react-redux'\n\nconst ${FILE_NAME} = (props) => {\n  return (\n    <div>$1</div>\n  )\n}\n\nconst mapStateToProps = (state) => ({})\n\nconst mapDispatchToProps = {}\n\n${FILE_NAME}.propTypes = {${2:second}\n}\n\nexport default connect(mapStateToProps, mapDispatchToProps)(${FILE_NAME})",
         type: "Components",
         description:
             "DEPRECATED: Creates a <strong>React functional component</strong> with PropTypes, connected redux and ES7 module system",
@@ -183,79 +183,76 @@ export const snippets: Snippet[] = [
     {
         prefix: "useEffectSnippet",
         snippet:
-            "useEffect(() => {\n  ${1}\n  return () => {\n    ${2}\n  }\n}, [${3}])\n",
+            "useEffect(() => {\n  ${1:first}\n  return () => {\n    ${2:second}\n  }\n}, [${3:third}])\n",
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "useContextSnippet",
-        snippet: `const ${1} = useContext(${2})`,
+        snippet: "const ${1:first} = useContext(${2:second})",
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "useStateSnippet",
-        snippet: `const [${1}, set${1}] = useState(${2})`,
+        snippet: "const [${1:first}, set${1:first}] = useState(${2:second})",
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "useReducerSnippet",
-        snippet: `const [state, dispatch] = useReducer(${1}, ${2}, ${3})`,
+        snippet: "const [state, dispatch] = useReducer(${1:first}, ${2:second}, ${3:third})",
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "useCallbackSnippet",
-        snippet: "useCallback(\n  () => {\n    ${1}\n  },\n  [${2}],\n)\n",
+        snippet: "useCallback(\n  () => {\n    ${1:first}\n  },\n  [${2:second}],\n)\n",
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "useMemoSnippet",
-        snippet: `useMemo(() => ${1}, [${2}])`,
+        snippet: "useMemo(() => ${1:first}, [${2:second}])",
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "useRefSnippet",
-        snippet: `const ${1} = useRef(${2})`,
+        snippet: "const ${1:first} = useRef(${2:second})",
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "useImperativeHandleSnippet",
         snippet:
-            "useImperativeHandle(\n  ${1},\n  () => {\n    ${2}\n  },\n  [${3}],\n)\n",
+            "useImperativeHandle(\n  ${1:first},\n  () => {\n    ${2:second}\n  },\n  [${3:third}],\n)\n",
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "useLayoutEffectSnippet",
         snippet:
-            "useLayoutEffect(() => {\n  ${1}\n\n  return () => {\n    ${2}\n  };\n}, [${3}])\n",
+            "useLayoutEffect(() => {\n  ${1:first}\n\n  return () => {\n    ${2:second}\n  };\n}, [${3:third}])\n",
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
     // imports snippet
     {
         prefix: "imr",
-        snippet:
-            "import React from 'react'",
+        snippet: "import React from 'react'",
         type: "ImportReact",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "imrd",
-        snippet:
-            "import ReactDOM from 'react-dom'",
+        snippet: "import ReactDOM from 'react-dom'",
         type: "ImportReactDom",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "imrc",
-        snippet:
-            "import React, { Component } from 'react'",
+        snippet: "import React, { Component } from 'react'",
         type: "ImportReactWithComponent",
         fileTypes: ["jsx", "tsx"]
     },
@@ -268,8 +265,7 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "imrpc",
-        snippet:
-            "import React, { PureComponent } from 'react'",
+        snippet: "import React, { PureComponent } from 'react'",
         type: "ImportReactWithPureComponent",
         fileTypes: ["jsx", "tsx"]
     },
@@ -282,8 +278,7 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "imrm",
-        snippet:
-            "import React, { memo } from 'react'",
+        snippet: "import React, { memo } from 'react'",
         type: "ImportReactWithMemo",
         fileTypes: ["jsx", "tsx"]
     },
@@ -296,16 +291,14 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "impt",
-        snippet:
-            "import PropTypes from 'prop-types'",
+        snippet: "import PropTypes from 'prop-types'",
         type: "ImportPropTypes",
         fileTypes: ["jsx", "tsx"]
     },
     // react-router
     {
         prefix: "imbr",
-        snippet:
-            "import { BrowserRouter as Router } from 'react-router-dom'",
+        snippet: "import { BrowserRouter as Router } from 'react-router-dom'",
         type: "ReactRouter",
         fileTypes: ["jsx", "tsx"]
     },
@@ -325,160 +318,152 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "imbrs",
-        snippet:
-            "import { Switch } from 'react-router-dom'",
+        snippet: "import { Switch } from 'react-router-dom'",
         type: "ImportRouterSwitch",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "imbrl",
-        snippet:
-            "import { Link } from 'react-router-dom'",
+        snippet: "import { Link } from 'react-router-dom'",
         type: "ImportRouterLink",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "imbrnl",
-        snippet:
-            "import { NavLink } from 'react-router-dom'",
+        snippet: "import { NavLink } from 'react-router-dom'",
         type: "ImportRouterNavLink",
         fileTypes: ["jsx", "tsx"]
     },
     // other imports
     {
         prefix: "imp",
-        snippet:
-            "import ${2:Name} from '${1}'",
+        snippet: "import ${2:Name} from '${1:first}'",
         type: "Import",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "imn",
-        snippet:
-            "import '${1}'",
+        snippet: "import '${1:first}'",
         type: "ImportNoModuleName",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "imd",
-        snippet:
-            "import { ${2:Component} } from '${1}'",
+        snippet: "import { ${2:Component} } from '${1:first}'",
         type: "ImportDestructing",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "ime",
-        snippet:
-            "import * as ${2:comp} from '${1}'",
+        snippet: "import * as ${2:comp} from '${1:first}'",
         type: "ImportEverything",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "ima",
-        snippet:
-            "import { ${2:Component} as ${3} } from '${1}'",
+        snippet: "import { ${2:Component} as ${3:third} } from '${1:first}'",
         type: "ImportAs",
         fileTypes: ["jsx", "tsx"]
     },
     // basics
     {
         prefix: "exp",
-        snippet: "export default ${1}",
+        snippet: "export default ${1:first}",
         type: "ExportDefault",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "exd",
-        snippet: "export { ${2} } from '${1}'",
+        snippet: "export { ${2:second} } from '${1:first}'",
         type: "ExportDestructing",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "exa",
-        snippet: "export { ${2} as ${3} } from '${1}'",
+        snippet: "export { ${2:second} as ${3:third} } from '${1:first}'",
         type: "ExportAs",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "enf",
-        snippet: "export const ${1} = (${2}) => {${3}}",
+        snippet: "export const ${1:first} = (${2:second}) => {${3:third}}",
         type: "ExportNamedFunction",
         description: "Export named function",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "edf",
-        snippet: "export default (${1}) => {${2}}",
+        snippet: "export default (${1:first}) => {${2:second}}",
         type: "ExportDefaultFunction",
         description: "Export default function",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "ednf",
-        snippet: "export default function ${1}(${2}) {${3}}",
+        snippet: "export default function ${1:first}(${2:second}) {${3:third}}",
         type: "ExportDefaultNamedFunction",
         description: "Export default named function",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "met",
-        snippet: "${1} = (${2}) => {${3}}",
+        snippet: "${1:first} = (${2:second}) => {${3:third}}",
         type: "Method",
         description: "Creates a method inside a class",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "pge",
-        snippet: "get ${1}() {\n  return this.${2}\n}",
+        snippet: "get ${1:first}() {\n  return this.${2:second}\n}",
         type: "PropertyGet",
         description: "Creates a getter property inside a class",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "pse",
-        snippet: "set ${1}(${2}) {${3}}",
+        snippet: "set ${1:first}(${2:second}) {${3:third}}",
         type: "PropertySet",
         description: "Creates a setter property inside a class",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "fre",
-        snippet: "${1}.forEach(${2} => {${3}})",
+        snippet: "${1:first}.forEach(${2:second} => {${3:third}})",
         type: "ForEach",
         description: "Creates a forEach statement",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "fof",
-        snippet: "for(let ${1} of ${2}) {${3}}",
+        snippet: "for(let ${1:first} of ${2:second}) {${3:third}}",
         type: "ForOf",
         description: "Iterating over property names of iterable objects",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "fin",
-        snippet: "for(let ${1} in ${2}) {${3}}",
+        snippet: "for(let ${1:first} in ${2:second}) {${3:third}}",
         type: "ForIn",
         description: "Iterating over property values of iterable objects",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "anfn",
-        snippet: "(${1}) => { ${2} }",
+        snippet: "(${1:first}) => { ${2:second} }",
         type: "AnonymousFunction",
         description: "Creates an anonymous function",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "nfn",
-        snippet: "const ${1} = (${2}) => { ${3} }",
+        snippet: "const ${1:first} = (${2:second}) => { ${3:third} }",
         type: "NamedFunction",
         description: "Creates a named function",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "dob",
-        snippet: "const {${2}} = ${1}",
+        snippet: "const {${2:second}} = ${1:first}",
         type: "DestructingObject",
         description:
             "Creates and assigns a local variable using object destructing",
@@ -486,7 +471,7 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "dar",
-        snippet: "const [${2}] = ${1}",
+        snippet: "const [${2:second}] = ${1:first}",
         type: "DestructingArray",
         description:
             "Creates and assigns a local variable using array destructing",
@@ -494,24 +479,21 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "sti",
-        snippet:
-            "setInterval(() => { ${1} }, ${2})",
+        snippet: "setInterval(() => { ${1:first} }, ${2:second})",
         type: "SetInterval",
         description: "Executes the given function at specified intervals",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "sto",
-        snippet:
-            "setTimeout(() => { ${1} }, ${2})",
+        snippet: "setTimeout(() => { ${1:first} }, ${2:second})",
         type: "SetTimeOut",
         description: "Executes the given function after the specified delay",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "prom",
-        snippet:
-            "return new Promise((resolve, reject) => { ${1} })",
+        snippet: "return new Promise((resolve, reject) => { ${1:first} })",
         type: "Promise",
         description:
             "Creates and returns a new Promise in the standard ES7 syntax",
@@ -519,7 +501,7 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "cp",
-        snippet: "const { ${1} } = this.props",
+        snippet: "const { ${1:first} } = this.props",
         type: "DestructProps",
         description:
             "Creates and assigns a local variable using props destructing",
@@ -527,7 +509,7 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "cs",
-        snippet: "const { ${1} } = this.state",
+        snippet: "const { ${1:first} } = this.state",
         type: "DestructState",
         description:
             "Creates and assigns a local variable using state destructing",
@@ -536,7 +518,7 @@ export const snippets: Snippet[] = [
     {
         prefix: "rconst",
         snippet:
-            "constructor(props) {\n  super(props)\n  this.state = {\n     ${1}\n  }\n}",
+            "constructor(props) {\n  super(props)\n  this.state = {\n     ${1:first}\n  }\n}",
         type: "ClassConstructor",
         description:
             "Adds a default constructor for it<code>('', () => {})</code>the class that contains props as arguments",
@@ -544,14 +526,14 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "est",
-        snippet: "state = { ${1} }",
+        snippet: "state = { ${1:first} }",
         type: "EmptyState",
         description: "Creates empty state object. To be used in a constructor.",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "cdm",
-        snippet: "componentDidMount() { ${1} }",
+        snippet: "componentDidMount() { ${1:first} }",
         type: "ComponentDidMount",
         description:
             "Invoked once, only on the client (not on the server), immediately after the initial rendering occurs.",
@@ -559,8 +541,7 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "scu",
-        snippet:
-            "shouldComponentUpdate(nextProps, nextState) { ${1} }",
+        snippet: "shouldComponentUpdate(nextProps, nextState) { ${1:first} }",
         type: "ShouldComponentUpdate",
         description:
             "Invoked before rendering when new props or state are being received. ",
@@ -568,8 +549,7 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "cdup",
-        snippet:
-            "componentDidUpdate(prevProps, prevState) { ${1}}",
+        snippet: "componentDidUpdate(prevProps, prevState) { ${1:first}}",
         type: "ComponentDidUpdate",
         description:
             "Invoked immediately after the component's updates are flushed to the DOM.",
@@ -577,7 +557,7 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "cwun",
-        snippet: "componentWillUnmount() {${1} }",
+        snippet: "componentWillUnmount() {${1:first} }",
         type: "ComponentWillUnmount",
         description:
             "Invoked immediately before a component is unmounted from the DOM.",
@@ -585,8 +565,7 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "gdsfp",
-        snippet:
-            "static getDerivedStateFromProps(props, state) {${1}}",
+        snippet: "static getDerivedStateFromProps(props, state) {${1:first}}",
         type: "GetDerivedStateFromProps",
         description:
             "Invoked right before calling the render method, both on the initial mount and on subsequent updates.",
@@ -594,8 +573,7 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "gsbu",
-        snippet:
-            "getSnapshotBeforeUpdate = (prevProps, prevState) => {${1}}",
+        snippet: "getSnapshotBeforeUpdate = (prevProps, prevState) => {${1:first}}",
         type: "GetSnapshotBeforeUpdate",
         description:
             "Called right before mutations are made (e.g. before the DOM is updated)",
@@ -603,65 +581,62 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "rcontext",
-        snippet: "const ${1} = React.createContext()",
+        snippet: "const ${1:first} = React.createContext()",
         type: "CreateContext",
         description: "Create React context",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "cref",
-        snippet: "this.${1}Ref = React.createRef()",
+        snippet: "this.${1:first}Ref = React.createRef()",
         type: "CreateRef",
         description: "Create ref statement used inside constructor",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "sst",
-        snippet:
-            "this.setState((state, props) => { return { ${1} }})",
+        snippet: "this.setState((state, props) => { return { ${1:first} }})",
         type: "ComponentSetStateObject",
         description: "Performs a shallow merge of nextState into current state",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "ssf",
-        snippet:
-            "this.setState((state, props) => { return { ${1} }})",
+        snippet: "this.setState((state, props) => { return { ${1:first} }})",
         type: "ComponentSetStateFunc",
         description: "Performs a shallow merge of nextState into current state",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "props",
-        snippet: "this.props.${1}",
+        snippet: "this.props.${1:first}",
         type: "ComponentProps",
         description: "Access component's props",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "state",
-        snippet: "this.state.${1}",
+        snippet: "this.state.${1:first}",
         type: "ComponentState",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "bnd",
-        snippet:
-            "this.${1} = this.${1}.bind(this)",
+        snippet: "this.${1:first} = this.${1:first}.bind(this)",
         type: "BindThis",
         description: "Binds this to a method",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "cmmb",
-        snippet: "/**\n * ${1}\n */",
+        snippet: "/**\n * ${1:first}\n */",
         type: "CommentBigBlock",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "hocredux",
         snippet:
-            "import React from 'react'\nimport { connect } from 'react-redux'\nimport PropTypes from 'prop-types'\n\nexport const mapStateToProps = state => ({})\n\nexport const mapDispatchToProps = {}\n\nexport const ${1} = (WrappedComponent) => {\n  const hocComponent = ({ ...props }) => <WrappedComponent {...props} />\n\n  hocComponent.propTypes = {}\n\n  return hocComponent\n}\n\nexport default WrapperComponent => connect(mapStateToProps, mapDispatchToProps)(${1}(WrapperComponent))\n",
+            "import React from 'react'\nimport { connect } from 'react-redux'\nimport PropTypes from 'prop-types'\n\nexport const mapStateToProps = state => ({})\n\nexport const mapDispatchToProps = {}\n\nexport const ${1:first} = (WrappedComponent) => {\n  const hocComponent = ({ ...props }) => <WrappedComponent {...props} />\n\n  hocComponent.propTypes = {}\n\n  return hocComponent\n}\n\nexport default WrapperComponent => connect(mapStateToProps, mapDispatchToProps)(${1:first}(WrapperComponent))\n",
         type: "HocComponentWithRedux",
         fileTypes: ["jsx", "tsx"]
     },
@@ -674,137 +649,359 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "tpf",
-        snippet: "typeof ${1}",
+        snippet: "typeof ${1:first}",
         type: "TypeofSnippet",
         fileTypes: ["jsx", "tsx"]
     },
-    // js console snippets 
+    // js console snippets
     {
         prefix: "cas",
-        snippet:
-            "console.assert(${1}, ${2})",
+        snippet: "console.assert(${1:first}, ${2:second})",
         type: "ConsoleAssert",
-        description: 'If the specified expression is false, the message is written to the console along with a stack trace',
+        description:
+            "If the specified expression is false, the message is written to the console along with a stack trace",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "ccl",
-        snippet:
-            "console.clear()",
+        snippet: "console.clear()",
         type: "ConsoleClear",
-        description: 'Clears the console',
+        description: "Clears the console",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "cco",
-        snippet:
-            "console.count(${1})",
+        snippet: "console.count(${1:first})",
         type: "ConsoleCount",
-        description: 'Writes the the number of times that <code>count()</code> has been invoked at the same line and with the same label',
+        description:
+            "Writes the the number of times that <code>count()</code> has been invoked at the same line and with the same label",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "cdi",
-        snippet:
-            "console.dir(${1})",
+        snippet: "console.dir(${1:first})",
         type: "ConsoleDir",
-        description: 'Prints a JavaScript representation of the specified object',
+        description:
+            "Prints a JavaScript representation of the specified object",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "cer",
-        snippet:
-            "console.error(${1})",
+        snippet: "console.error(${1:first})",
         type: "ConsoleError",
-        description: 'Displays a message in the console and also includes a stack trace from where the method was called',
+        description:
+            "Displays a message in the console and also includes a stack trace from where the method was called",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "cgr",
-        snippet:
-            "console.group('${1}')",
+        snippet: "console.group('${1:first}')",
         type: "ConsoleGroup",
-        description: 'Groups and indents all following output by an additional level, until <code>console.groupEnd()</code> is called.',
+        description:
+            "Groups and indents all following output by an additional level, until <code>console.groupEnd()</code> is called.",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "cge",
-        snippet:
-            "console.groupEnd()",
+        snippet: "console.groupEnd()",
         type: "ConsoleGroupEnd",
-        description: 'Closes out the corresponding <code>console.group()</code>.',
+        description:
+            "Closes out the corresponding <code>console.group()</code>.",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "clg",
-        snippet:
-            "console.log(${1})",
+        snippet: "console.log(${1:first})",
         type: "ConsoleLog",
-        description: 'Displays a message in the console',
+        description: "Displays a message in the console",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "ctr",
-        snippet:
-            "console.trace(${1})",
+        snippet: "console.trace(${1:first})",
         type: "ConsoleTrace",
-        description: 'Prints a stack trace from the point where the method was called',
+        description:
+            "Prints a stack trace from the point where the method was called",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "clo",
-        snippet:
-            "console.log('${1}', ${2})",
+        snippet: "console.log('${1:first}', ${2:second})",
         type: "ConsoleLogObject",
-        description: 'Logs property with name.',
+        description: "Logs property with name.",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "clj",
-        snippet:
-            "console.log('${1}', JSON.stringify(${1}, null, 2))",
+        snippet: "console.log('${1:first}', JSON.stringify(${1:first}, null, 2))",
         type: "ConsoleLogJson",
-        description: 'Logs stringified JSON property with name.',
+        description: "Logs stringified JSON property with name.",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "ctm",
-        snippet:
-            "console.time('${1}')",
+        snippet: "console.time('${1:first}')",
         type: "ConsoleTime",
-        description: 'Console time wrapper',
+        description: "Console time wrapper",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "cte",
-        snippet:
-            "console.timeEnd('${1}')",
+        snippet: "console.timeEnd('${1:first}')",
         type: "ConsoleTimeEnd",
-        description: 'Console time end wrapper',
+        description: "Console time end wrapper",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "cwa",
-        snippet:
-            "console.warn(${1})",
+        snippet: "console.warn(${1:first})",
         type: "ConsoleWarn",
-        description: 'Displays a message in the console but also displays a yellow warning icon along with the logged message',
+        description:
+            "Displays a message in the console but also displays a yellow warning icon along with the logged message",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "cin",
-        snippet:
-            "console.info(${1})",
+        snippet: "console.info(${1:first})",
         type: "ConsoleInfo",
-        description: 'Displays a message in the console but also displays a blue information icon along with the logged message',
+        description:
+            "Displays a message in the console but also displays a blue information icon along with the logged message",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "ctl",
-        snippet:
-            "console.table([${1}])",
+        snippet: "console.table([${1:first}])",
         type: "ConsoleTable",
-        description: 'Logs table to console',
+        description: "Logs table to console",
         fileTypes: ["jsx", "tsx"]
     },
+    // prop types
+    {
+        prefix: "pta",
+        snippet: "PropTypes.array",
+        type: "PropTypeArray",
+        description: "Array prop type",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptar",
+        snippet: "PropTypes.array.isRequired",
+        type: "PropTypeArrayRequired",
+        description: "Array prop type required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptb",
+        snippet: "PropTypes.bool",
+        type: "PropTypeBool",
+        description: "Bool prop type",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptbr",
+        snippet: "PropTypes.bool.isRequired",
+        type: "PropTypeBoolRequired",
+        description: "Bool prop type required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptf",
+        snippet: "PropTypes.func",
+        type: "PropTypeFunc",
+        description: "Func prop type",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptfr",
+        snippet: "PropTypes.func.isRequired",
+        type: "PropTypeFuncRequired",
+        description: "Func prop type required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptn",
+        snippet: "PropTypes.number",
+        type: "PropTypeNumber",
+        description: "Number prop type",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptnr",
+        snippet: "PropTypes.number.isRequired",
+        type: "PropTypeNumberRequired",
+        description: "Number prop type required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "pto",
+        snippet: "PropTypes.object",
+        type: "PropTypeObject",
+        description: "Object prop type",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptor",
+        snippet: "PropTypes.object.isRequired",
+        type: "PropTypeObjectRequired",
+        description: "Object prop type required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "pts",
+        snippet: "PropTypes.string",
+        type: "PropTypeString",
+        description: "String prop type",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptsr",
+        snippet: "PropTypes.string.isRequired",
+        type: "PropTypeStringRequired",
+        description: "String prop type required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptnd",
+        snippet: "PropTypes.node",
+        type: "PropTypeNode",
+        description:
+            "Anything that can be rendered: numbers, strings, elements or an array",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptndr",
+        snippet: "PropTypes.node.isRequired",
+        type: "PropTypeNodeRequired",
+        description:
+            "Anything that can be rendered: numbers, strings, elements or an array required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptel",
+        snippet: "PropTypes.element",
+        type: "PropTypeElement",
+        description: "React element prop type",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptelr",
+        snippet: "PropTypes.element.isRequired",
+        type: "PropTypeElementRequired",
+        description: "React element prop type required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "pti",
+        snippet: "PropTypes.instanceOf(${1:ClassName})",
+        type: "PropTypeInstanceOf",
+        description: "Is an instance of a class prop type",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptir",
+        snippet: "PropTypes.instanceOf(${1:ClassName}).isRequired",
+        type: "PropTypeInstanceOfRequired",
+        description: "Is an instance of a class prop type required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "pte",
+        snippet: "PropTypes.oneOf(['${1:value1}', '${2:value2}'])",
+        type: "PropTypeEnum",
+        description:
+            "Prop type limited to specific values by treating it as an enum",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "pter",
+        snippet: "PropTypes.oneOf(['${1:value1}', '${2:value2}']).isRequired",
+        type: "PropTypeEnumRequired",
+        description:
+            "Prop type limited to specific values by treating it as an enum required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptet",
+        snippet:
+            "PropTypes.oneOfType([\n  ${1:PropTypes.string},\n  ${2:PropTypes.number},\n  ${3:PropTypes.bool}\n])",
+        type: "PropTypeOneOfType",
+        description: "An object that could be one of many types",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptetr",
+        snippet:
+            "PropTypes.oneOfType([\n  ${1:PropTypes.string},\n  ${2:PropTypes.number},\n  ${3:PropTypes.bool}\n]).isRequired",
+        type: "PropTypeOneOfTypeRequired",
+        description: "An object that could be one of many types required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptao",
+        snippet: "PropTypes.arrayOf(${1:PropTypes.string})",
+        type: "PropTypeArrayOf",
+        description: "An array of a certain type",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptaor",
+        snippet: "PropTypes.arrayOf(${1:PropTypes.string}).isRequired",
+        type: "PropTypeArrayOfRequired",
+        description: "An array of a certain type required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptoo",
+        snippet: "PropTypes.objectOf(${1:PropTypes.number})",
+        type: "PropTypeObjectOf",
+        description: "An object with property values of a certain type",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptoor",
+        snippet: "PropTypes.objectOf(${1:PropTypes.number}).isRequired",
+        type: "PropTypeObjectOfRequired",
+        description:
+            "An object with property values of a certain type required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptsh",
+        snippet:
+            "PropTypes.shape({\n  ${1:propertyName}: ${2:PropTypes.string},\n  ${3:propertyName2}: ${4:PropTypes.number}\n})",
+        type: "PropTypeShape",
+        description: "An object taking on a particular shape",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptshr",
+        snippet:
+            "PropTypes.shape({\n  ${1:propertyName}: ${2:PropTypes.string},\n  ${3:propertyName2}: ${4:PropTypes.number}\n}).isRequired",
+        type: "PropTypeShapeRequired",
+        description: "An object taking on a particular shape required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptex",
+        snippet:
+            "PropTypes.exact({\n  ${1:propertyName}: ${2:PropTypes.string},\n  ${3:propertyName2}: ${4:PropTypes.number}\n})",
+        type: "PropTypeExact",
+        description: "An object with warnings on extra properties",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptexr",
+        snippet:
+            "PropTypes.exact({\n  ${1:propertyName}: ${2:PropTypes.string},\n  ${3:propertyName2}: ${4:PropTypes.number}\n}).isRequired",
+        type: "PropTypeExactRequired",
+        description: "An object with warnings on extra properties required",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "ptany",
+        snippet: "PropTypes.any",
+        type: "PropTypeAny",
+        description: "Any prop type",
+        fileTypes: ["jsx", "tsx"]
+    }
 ];
