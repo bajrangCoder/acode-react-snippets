@@ -201,13 +201,15 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "useReducerSnippet",
-        snippet: "const [state, dispatch] = useReducer(${1:first}, ${2:second}, ${3:third})",
+        snippet:
+            "const [state, dispatch] = useReducer(${1:first}, ${2:second}, ${3:third})",
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
     {
         prefix: "useCallbackSnippet",
-        snippet: "useCallback(\n  () => {\n    ${1:first}\n  },\n  [${2:second}],\n)\n",
+        snippet:
+            "useCallback(\n  () => {\n    ${1:first}\n  },\n  [${2:second}],\n)\n",
         type: "Hooks",
         fileTypes: ["jsx", "tsx"]
     },
@@ -573,7 +575,8 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "gsbu",
-        snippet: "getSnapshotBeforeUpdate = (prevProps, prevState) => {${1:first}}",
+        snippet:
+            "getSnapshotBeforeUpdate = (prevProps, prevState) => {${1:first}}",
         type: "GetSnapshotBeforeUpdate",
         description:
             "Called right before mutations are made (e.g. before the DOM is updated)",
@@ -733,7 +736,8 @@ export const snippets: Snippet[] = [
     },
     {
         prefix: "clj",
-        snippet: "console.log('${1:first}', JSON.stringify(${1:first}, null, 2))",
+        snippet:
+            "console.log('${1:first}', JSON.stringify(${1:first}, null, 2))",
         type: "ConsoleLogJson",
         description: "Logs stringified JSON property with name.",
         fileTypes: ["jsx", "tsx"]
@@ -1004,125 +1008,234 @@ export const snippets: Snippet[] = [
         description: "Any prop type",
         fileTypes: ["jsx", "tsx"]
     },
-  {
-    prefix: 'desc',
-    snippet: "describe('${1:first}', () => { ${2:second} })",
-    type: 'describeBlock',
-    description: 'Testing `describe` block',
-    fileTypes: ['jsx', 'tsx'],
-  },
-  {
-    prefix: 'test',
-    snippet: "test('should ${1:first}', () => { ${2:second} })",
-    type: 'TestBlock',
-    description: 'Testing `test` block',
-    fileTypes: ['jsx', 'tsx'],
-  },
-  {
-    prefix: 'testa',
-    snippet: "test('should ${1:first}', async () => { ${2:second} })",
-    type: 'TestAsyncBlock',
-    description: 'Testing `asynchronous test` block',
-    fileTypes: ['jsx', 'tsx'],
-  },
-  {
-    prefix: 'tit',
-    snippet: "it('should ${1:first}', () => { ${2:second} })",
-    type: 'ItBlock',
-    description: 'Testing `it` block',
-    fileTypes: ['jsx', 'tsx'],
-  },
-  {
-    prefix: 'tita',
-    snippet: "it('should ${1:first}', async () => { ${2:second} })",
-    type: 'ItAsyncBlock',
-    description: 'Testing asynchronous `it` block',
-    fileTypes: ['jsx', 'tsx'],
-  },
-  {
-    prefix: 'stest',
-    snippet:
-      "import React from 'react'\nimport renderer from 'react-test-renderer'\n\nimport { ${1:FileName} } from '../${1:FileName}'\n\ndescribe('<${1:FileName} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(<${1:FileName} {...defaultProps} />)\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
-    type: 'SetupReactTest',
-    fileTypes: ['jsx', 'tsx'],
-  },
-  {
-    prefix: 'sntest',
-    snippet:
-      "import 'react-native'\nimport React from 'react'\nimport renderer from 'react-test-renderer'\n\nimport ${1:FileName} from '../${1:FileName}'\n\ndescribe('<${1:FileName} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(<${1:FileName} {...defaultProps} />)\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
-    type: 'SetupReactNativeTest',
-    fileTypes: ['jsx', 'tsx'],
-  },
-  {
-    prefix: 'srtest',
-    snippet:
-      "import React from 'react'\nimport renderer from 'react-test-renderer'\nimport { Provider } from 'react-redux'\n\nimport store from '~/store'\nimport { ${1:FileName} } from '../${1:FileName}'\n\ndescribe('<${1:FileName} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(\n    <Provider store={store}>\n     <${1:FileName} {...defaultProps} />\n    </Provider>,\n  )\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
-    type: 'SetupReactComponentTestWithRedux',
-    description: 'Create test component',
-    fileTypes: ['jsx', 'tsx'],
-  },
-  {
-    prefix: 'snrtest',
-    snippet:
-      "import 'react-native'\nimport React from 'react'\nimport renderer from 'react-test-renderer'\nimport { Provider } from 'react-redux'\n\nimport store from '~/store'\nimport ${1:FileName} from '../${1:FileName}'\n\ndescribe('<${1:FileName} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(\n    <Provider store={store}>\n      <${1:FileName} {...defaultProps} />\n    </Provider>,\n  )\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
-    type: 'SetupReactNativeTestWithRedux',
-    fileTypes: ['jsx', 'tsx'],
-  },
-  //Redux snippets
-  {
-    prefix: "redux",
-    snippet:
-      "import { connect } from 'react-redux'",
-    description: "Redux: Import connect from react-redux",
-    type: "importReduxConnect",
-    fileTypes: ["jsx", "tsx"],
-  },
-  {
-    prefix: "rxaction",
-    snippet:
-      "export const ${1} = (payload) => ({\n  type: ${2},\n  payload\n})\n",
-    description: "Redux: Create a Redux action",
-    type: "reduxAction",
-    fileTypes: ["jsx", "tsx"],
-  },
-  {
-    prefix: "rxconst",
-    snippet:
-      "export const ${1} = '${1}'",
-    description: "Redux: Create a Redux constant",
-    type: "reduxConst",
-    fileTypes: ["jsx", "tsx"],
-  },
-  {
-    prefix: "rxreducer",
-    snippet:
-      "const initialState = {}\n\nexport default (state = initialState, { type, payload }) => {\n  switch (type) {\n    case ${1}:\n      return { ...state, ...payload }\n    default:\n      return state\n  }\n}\n",
-    description: "Redux: Create a Redux reducer",
-    type: "reduxReducer",
-    fileTypes: ["jsx", "tsx"],
-  },
-  {
-    prefix: "rxselect",
-    snippet:
-      "import { createSelector } from 'reselect'\n\nexport const ${1} = state => state.${2}",
-    description: "Redux: Create a Redux selector using Reselect",
-    type: "reduxSelector",
-    fileTypes: ["jsx", "tsx"],
-  },
-  {
-    prefix: "rxslice",
-    snippet:
-      "import { createSlice } from '@reduxjs/toolkit'\n\nconst initialState = {}\n\nconst ${FILE_NAME} = createSlice({\n  name: ${2},\n  initialState,\n reducers: {}\n});\n\nexport const {} = ${Placeholders.FileName}.actions\n\nexport default ${Placeholders.FileName}.reducer",
-    description: "Redux: Create a Redux slice using @reduxjs/toolkit",
-    type: "reduxSlice",
-    fileTypes: ["jsx", "tsx"],
-  },
-  {
-    prefix: "reduxmap",
-    snippet:
-      "const mapStateToProps = (state) => ({})\n\nconst mapDispatchToProps = {}",
-    description: "Redux: Map state and dispatch to props",
-    type: "mappingToProps",
-    fileTypes: ["jsx", "tsx"],
-  },
+    {
+        prefix: "desc",
+        snippet: "describe('${1:first}', () => { ${2:second} })",
+        type: "describeBlock",
+        description: "Testing `describe` block",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "test",
+        snippet: "test('should ${1:first}', () => { ${2:second} })",
+        type: "TestBlock",
+        description: "Testing `test` block",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "testa",
+        snippet: "test('should ${1:first}', async () => { ${2:second} })",
+        type: "TestAsyncBlock",
+        description: "Testing `asynchronous test` block",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tit",
+        snippet: "it('should ${1:first}', () => { ${2:second} })",
+        type: "ItBlock",
+        description: "Testing `it` block",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tita",
+        snippet: "it('should ${1:first}', async () => { ${2:second} })",
+        type: "ItAsyncBlock",
+        description: "Testing asynchronous `it` block",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "stest",
+        snippet:
+            "import React from 'react'\nimport renderer from 'react-test-renderer'\n\nimport { ${1:${FILE_NAME}} } from '../${1:${FILE_NAME}}'\n\ndescribe('<${1:${FILE_NAME}} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(<${1:${FILE_NAME}} {...defaultProps} />)\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
+        type: "SetupReactTest",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "sntest",
+        snippet:
+            "import 'react-native'\nimport React from 'react'\nimport renderer from 'react-test-renderer'\n\nimport ${1:${FILE_NAME}} from '../${1:${FILE_NAME}}'\n\ndescribe('<${1:${FILE_NAME}} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(<${1:${FILE_NAME}} {...defaultProps} />)\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
+        type: "SetupReactNativeTest",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "srtest",
+        snippet:
+            "import React from 'react'\nimport renderer from 'react-test-renderer'\nimport { Provider } from 'react-redux'\n\nimport store from '~/store'\nimport { ${1:${FILE_NAME}} } from '../${1:${FILE_NAME}}'\n\ndescribe('<${1:${FILE_NAME}} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(\n    <Provider store={store}>\n     <${1:${FILE_NAME}} {...defaultProps} />\n    </Provider>,\n  )\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
+        type: "SetupReactComponentTestWithRedux",
+        description: "Create test component",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "snrtest",
+        snippet:
+            "import 'react-native'\nimport React from 'react'\nimport renderer from 'react-test-renderer'\nimport { Provider } from 'react-redux'\n\nimport store from '~/store'\nimport ${1:${FILE_NAME}} from '../${1:${FILE_NAME}}'\n\ndescribe('<${1:${FILE_NAME}} />', () => {\n  const defaultProps = {}\n  const wrapper = renderer.create(\n    <Provider store={store}>\n      <${1:${FILE_NAME}} {...defaultProps} />\n    </Provider>,\n  )\n\n  test('render', () => {\n    expect(wrapper).toMatchSnapshot()\n  })\n})",
+        type: "SetupReactNativeTestWithRedux",
+        fileTypes: ["jsx", "tsx"]
+    },
+    //Redux snippets
+    {
+        prefix: "redux",
+        snippet: "import { connect } from 'react-redux'",
+        description: "Redux: Import connect from react-redux",
+        type: "importReduxConnect",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "rxaction",
+        snippet:
+            "export const ${1} = (payload) => ({\n  type: ${2},\n  payload\n})\n",
+        description: "Redux: Create a Redux action",
+        type: "reduxAction",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "rxconst",
+        snippet: "export const ${1} = '${1}'",
+        description: "Redux: Create a Redux constant",
+        type: "reduxConst",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "rxreducer",
+        snippet:
+            "const initialState = {}\n\nexport default (state = initialState, { type, payload }) => {\n  switch (type) {\n    case ${1}:\n      return { ...state, ...payload }\n    default:\n      return state\n  }\n}\n",
+        description: "Redux: Create a Redux reducer",
+        type: "reduxReducer",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "rxselect",
+        snippet:
+            "import { createSelector } from 'reselect'\n\nexport const ${1} = state => state.${2}",
+        description: "Redux: Create a Redux selector using Reselect",
+        type: "reduxSelector",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "rxslice",
+        snippet:
+            "import { createSlice } from '@reduxjs/toolkit'\n\nconst initialState = {}\n\nconst ${FILE_NAME} = createSlice({\n  name: ${2},\n  initialState,\n reducers: {}\n});\n\nexport const {} = ${Placeholders.FILE_NAME}.actions\n\nexport default ${Placeholders.FILE_NAME}.reducer",
+        description: "Redux: Create a Redux slice using @reduxjs/toolkit",
+        type: "reduxSlice",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "reduxmap",
+        snippet:
+            "const mapStateToProps = (state) => ({})\n\nconst mapDispatchToProps = {}",
+        description: "Redux: Map state and dispatch to props",
+        type: "mappingToProps",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "exptp",
+        snippet: "export type ${1:first} = {${2:second}}",
+        type: "ExportType",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "expint",
+        snippet: "export interface ${1:first} {${2:second}}",
+        type: "ExportInterface",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tsrcc",
+        snippet:
+            "import React, { Component } from 'react'\n\ninterface Props {\n  // Define your props here\n}\n\ninterface State {\n  // Define your state here\n}\n\nexport default class ${1:${FILE_NAME}} extends Component<Props, State> {\n  state = {}\n\n  render() {\n    return (\n      <div>\n        ${2:/* Your JSX code here */}\n      </div>\n    )\n  }\n}",
+        type: "TypescriptReactClassComponent",
+        description:
+            "Creates a React component class with ES7 module system and TypeScript interfaces",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tsrce",
+        snippet:
+            "import React, { Component } from 'react'\n\ninterface Props {\n  // Define your props here\n}\n\ninterface State {\n  // Define your state here\n}\nclass ${1:${FILE_NAME}} extends Component<Props, State> {\n  state = {}\n\n  render() {\n    return (\n      <div>\n        ${2:/* Your JSX code here */}\n      </div>\n    )\n  }\n}\n\nexport default ${1:${FILE_NAME}};",
+        type: "typescriptReactClassExportComponent",
+        description:
+            "Creates a React component class with ES7 module system and TypeScript interfaces",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tsrfce",
+        snippet:
+            "import React from 'react'\n\ninterface Props {\n  // Define your props here\n}\n\nfunction ${1:${FILE_NAME}}({}: Props) {\n  return (\n    <div>\n      ${2:/* Your JSX code here */}\n    </div>\n  )\n}\n\nexport default ${1:${FILE_NAME}};",
+        type: "typescriptReactFunctionalExportComponent",
+        description:
+            "Creates a React Functional Component with ES7 module system and TypeScript interface",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tsrfc",
+        snippet:
+            "import React from 'react'\n\ninterface Props {\n  // Define your props here\n}\n\nexport default function ${1:${FILE_NAME}}({}: Props) {\n  return (\n    <div>\n      ${2:/* Your JSX code here */}\n    </div>\n  )\n}",
+        type: "typescriptReactFunctionalComponent",
+        description:
+            "Creates a React Functional Component with ES7 module system and TypeScript interface",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tsrafce",
+        snippet:
+            "import React from 'react';\n\ninterface Props {\n  // Define your props here\n}\n\nconst ${1:${FILE_NAME}} = (props: Props) => {\n  return (\n    <div>\n      ${2:first} {/* Your JSX code here */}\n    </div>\n  );\n};\n\nexport default ${1:${FILE_NAME}};",
+        type: "typescriptReactArrowFunctionExportComponent",
+        description:
+            "Creates a React Arrow Function Component with ES7 module system and TypeScript interface",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tsrafc",
+        snippet:
+            "import React from 'react';\n\ninterface Props {\n  // Define your props here\n}\n\nconst ${1:${FILE_NAME}} = (props: Props) => {\n  return (\n    <div>\n      ${2:FirstTab} {/* Your JSX code here */}\n    </div>\n  );\n};",
+        type: "typescriptReactArrowFunctionComponent",
+        description:
+            "Creates a React Arrow Function Component with ES7 module system and TypeScript interface",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tsrpc",
+        snippet:
+            "import React, { PureComponent } from 'react';\n\ninterface Props {\n  // Define your props here\n}\n\nexport default class ${1:${FILE_NAME}} extends PureComponent<Props> {\n  ${2:innerComponentReturn}\n}",
+        type: "typescriptReactClassPureComponent",
+        description:
+            "Creates a React pure component class with ES7 module system and TypeScript interface",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tsrpce",
+        snippet:
+            "import React, { PureComponent } from 'react';\n\ninterface Props {\n  // Define your props here\n}\n\nclass ${1:${FILE_NAME}} extends PureComponent<Props> {\n  ${2:innerComponentReturn}\n}\nexport default ${1:${FILE_NAME}};",
+        type: "typescriptReactClassExportPureComponent",
+        description:
+            "Creates a React pure component class with ES7 module system and TypeScript interface",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tsrcredux",
+        snippet:
+            "import { connect } from 'react-redux';\n${1:reactComponent}\n\ninterface Props {\n  // Define your props here\n}\n\ninterface State {\n  // Define your state here\n}\n\nexport class ${2:${FILE_NAME}} extends Component<Props, State> {\n  state = {};\n  ${3:innerComponentReturn}\n}\n${4:reduxComponentExport}",
+        type: "typescriptReactClassComponentRedux",
+        description:
+            "Creates a React component class with connected redux and ES7 module system and TypeScript interfaces",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tsrnf",
+        snippet:
+            "import { View, Text } from 'react-native';\n${1:react}\n\ninterface Props {\n  // Define your props here\n}\n\nconst ${2:${FILE_NAME}} = (props: Props) => {\n  return (\n    <View>\n      <Text>${3:FirstTab}</Text>\n    </View>\n  );\n};\n\nexport default ${2:${FILE_NAME}};",
+        type: "typescriptReactNativeArrowFunctionComponent",
+        description:
+            "Creates a React Native Arrow Function Component with ES7 module system in TypeScript",
+        fileTypes: ["jsx", "tsx"]
+    },
+    {
+        prefix: "tsrnfs",
+        snippet:
+            "import { StyleSheet, Text, View } from 'react-native';\n${1:react}\n\ninterface Props {\n  // Define your props here\n}\n\nconst ${2:${FILE_NAME}} = (props: Props) => {\n  return (\n    <View>\n      <Text>${3:FirstTab}</Text>\n    </View>\n  );\n};\n\nexport default ${2:${FILE_NAME}};\n\nconst styles = StyleSheet.create({});",
+        type: "typescriptReactNativeArrowFunctionComponentWithStyles",
+        description:
+            "Creates a React Native Arrow Function Component with ES7 module system, TypeScript interface and StyleSheet",
+        fileTypes: ["jsx", "tsx"]
+    }
 ];
