@@ -6,6 +6,7 @@ export interface Snippet {
     fileTypes: string[];
 }
 
+// snippets array 
 export const snippets: Snippet[] = [
     // components snippets
     {

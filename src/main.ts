@@ -16,6 +16,9 @@ class ReactSnippet {
     }
 
     private setVariables() {
+        /*
+        set FILE_NAME variable in ace
+        */
         const { variables } = snippetManager;
         variables.FILE_NAME = () => {
             const fileNameWithExtension = editorManager.activeFile.filename;
@@ -38,7 +41,7 @@ class ReactSnippet {
                 callback: (err: any, results: AceAjax.Completion[]) => void
             ) => {
                 const currentFileType = getCurrentFileType(session);
-
+                //check for file types
                 const relevantSnippets = snippets.filter(s =>
                     s.fileTypes.includes(currentFileType)
                 );
@@ -83,7 +86,7 @@ class ReactSnippet {
         cacheFile: any,
         cacheFileUrl: string
     ): Promise<void> {
-        const styling = document.createElement("style");
+        /*const styling = document.createElement("style");
         styling.innerHTML = `
         .ace_tooltip.ace_doc-tooltip {
             display: flex !important;
@@ -93,7 +96,7 @@ class ReactSnippet {
             white-space: pre-wrap;
         }
         `;
-        document.head.append(styling);
+        document.head.append(styling);*/
         acode.addIcon("react-snippet-icon", this.baseUrl + "icon.png");
     }
 
