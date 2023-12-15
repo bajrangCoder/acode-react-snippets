@@ -2,13 +2,17 @@
 
 This Acode plugin provides a collection of ES7+ React/Redux snippets to enhance your development workflow on mobile. Special thanks to MatrixCoder for contributing to snippet content. Inspiration for this plugin is drawn from the VS Code ES7+ React/Redux/React-Native/JS snippets extension.
 
-> **Note**
+> [!NOTE]
 > This plugin also adds docs for snippet but that will only visible with the future update of Acode
+
+> [!NOTE]
+> Update v1.0.1: added a html to jsx converter 
 
 ## Features
 
 - Comprehensive snippets for React, Redux, and Typescript development in ES7+ syntax.
 - Works specifically in `.jsx` and `.tsx` files.
+- built-in html to jsx converter
 
 ## Usage
 
@@ -17,6 +21,10 @@ This Acode plugin provides a collection of ES7+ React/Redux snippets to enhance 
 3. Open a `.jsx` or `.tsx` file and start typing the snippet prefix to trigger autocompletion.
 
 > Snippet docs 👉 [here](https://github.com/ults-io/vscode-react-javascript-snippets/blob/master/docs/Snippets.md)
+
+## How to Use HTML2JSX converter?
+
+- select the part of html code in jsx or tsx file and press `JSX` option from selection menu to convert it.
 
 ## Contribution
 

@@ -1,7 +1,8 @@
 import plugin from "../plugin.json";
-import { getCurrentFileType } from "./helpers";
+import { getCurrentFileType, htmltojsx } from "./helpers";
 import { snippets, Snippet } from "./snippets";
 const { snippetManager } = ace.require("ace/snippets");
+const selectionMenu = acode.require('selectionMenu');
 const { editor } = editorManager;
 
 declare var extraSyntaxHighlightsInstalled: boolean;
@@ -98,6 +99,15 @@ class ReactSnippet {
         `;
         document.head.append(styling);*/
         acode.addIcon("react-snippet-icon", this.baseUrl + "icon.png");
+        selectionMenu.add(this.convertToJsx.bind(this), 'JSX', 'selected');
+    }
+    
+    convertToJsx(){
+        let selectionRange = editor.getSelectionRange();
+        let selectedText = editor.getSelectedText();
+        let convertedTxt = htmltojsx(selectedText);
+        editor.getSession().replace(selectionRange, convertedTxt);
+        window.toast("Converted 💥", 3000);
     }
 
     async destroy() {

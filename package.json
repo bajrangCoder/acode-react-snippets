@@ -1,6 +1,6 @@
 {
   "name": "acode-react-snippets",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Acode plugin for react snippets",
   "main": "dist/main.js",
   "repository": "https://github.com/bajrangCoder/AcodeTSTemplate.git",
