@@ -1368,7 +1368,7 @@ export const snippets: Snippet[] = [
     fileTypes: ["jsx", "tsx", "javascript"],
   },
   {
-    prefix: "sp",
+    prefix: "spl",
     snippet: "${1:array}.splice(${2:start}, ${3:deleteCount}, ${4:elements})",
     type: "Array.splice",
     description: "Removes, replaces and/or adds new elements in an array.",
@@ -1493,7 +1493,7 @@ export const snippets: Snippet[] = [
   },
   {
     prefix: "sp",
-    snippet: "${1:str}.split(${2:delimiter}, ${3:limit})",
+    snippet: "${1:str}.split(${2:delimiter})",
     type: "String.split",
     description:
       "Splits a string into an array of substrings using all occurrences of the delimiter.",
@@ -1565,6 +1565,42 @@ export const snippets: Snippet[] = [
     prefix: "rc",
     snippet: "${1:document}.removeChild(${2:elem})",
     type: "removeChild",
+    description: "Removes a child node from the DOM",
+    fileTypes: ["tsx", "javascript"],
+  },
+  {
+    prefix: "rpc",
+    snippet: "${1:document}.replaceChild(${2:newChild}, ${3:oldChild})",
+    type: "replaceChild",
+    description: "Replaces a child node from the DOM",
+    fileTypes: ["tsx", "javascript"],
+  },
+  {
+    prefix: "inb",
+    snippet: "${1:parentEl}.insertBefore(${2:newEl}, ${3:refEl})",
+    type: "insertBefore",
+    description: "Inserts a child node into the DOM",
+    fileTypes: ["tsx", "javascript"],
+  },
+  {
+    prefix: "ina",
+    snippet: "${1:parentEl}.insertAdjacentHTML(${2:position}, ${3:el})",
+    type: "insertAdjacentHTML",
+    description: "Inserts a child node into the DOM",
+    fileTypes: ["tsx", "javascript"],
+  },
+  {
+    prefix: "ds",
+    snippet: "${1:el}.dataset",
+    type: "dataset",
+    description:
+      "Returns the value of all 'data-' properties on a HTML element",
+    fileTypes: ["tsx", "javascript"],
+  },
+  {
+    prefix: "gcs",
+    snippet: "getComputedStyle(${1:el})",
+    type: "replaceChild",
     description: "Removes a child node from the DOM",
     fileTypes: ["tsx", "javascript"],
   },
