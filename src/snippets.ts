@@ -1427,7 +1427,7 @@ export const snippets: Snippet[] = [
   },
   {
     prefix: "rep",
-    snippet: "${1:str}.replace({2:substring}, ${3:replacement})$3",
+    snippet: "${1:str}.replace({2:substring}, ${3:replacement})$4",
     type: "String.replace",
     description:
       "Searches a string for a match against a regular expression and replaces it with another string.",
@@ -1435,7 +1435,7 @@ export const snippets: Snippet[] = [
   },
   {
     prefix: "repa",
-    snippet: "${1:str}.replaceAll({2:substring}, ${3:replacement})$3",
+    snippet: "${1:str}.replaceAll({2:substring}, ${3:replacement})$4",
     type: "String.replaceAll",
     description:
       "Searches a string for a all matches against a regular expression or a substring and replaces them with another string.",
