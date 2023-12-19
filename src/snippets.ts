@@ -1427,7 +1427,7 @@ export const snippets: Snippet[] = [
   },
   {
     prefix: "rep",
-    snippet: "${1:str}.replace({2:substring}, ${3:replacement})$4",
+    snippet: "${1:str}.replace(${2:substring}, ${3:replacement})$4",
     type: "String.replace",
     description:
       "Searches a string for a match against a regular expression and replaces it with another string.",
@@ -1435,7 +1435,7 @@ export const snippets: Snippet[] = [
   },
   {
     prefix: "repa",
-    snippet: "${1:str}.replaceAll({2:substring}, ${3:replacement})$4",
+    snippet: "${1:str}.replaceAll(${2:substring}, ${3:replacement})$4",
     type: "String.replaceAll",
     description:
       "Searches a string for a all matches against a regular expression or a substring and replaces them with another string.",
@@ -1443,14 +1443,14 @@ export const snippets: Snippet[] = [
   },
   {
     prefix: "sw",
-    snippet: "${1:str}.startsWith(${2:substr})",
+    snippet: "${1:str}.startsWith(${2:substr})$3",
     type: "String.startsWith",
     description: "Checks if a string starts with a specified substring.",
     fileTypes: ["jsx", "tsx", "javascript"],
   },
   {
     prefix: "ew",
-    snippet: "${1:str}.endsWith(${2:substr})",
+    snippet: "${1:str}.endsWith(${2:substr})$3",
     type: "String.endsWith",
     description: "Checks if a string ends with a specified substring.",
     fileTypes: ["jsx", "tsx", "javascript"],
@@ -1503,7 +1503,7 @@ export const snippets: Snippet[] = [
   // Array and string methods
   {
     prefix: "inc",
-    snippet: "${1:elements}.includes(${2:el}, ${3:optionalStartPos})$4",
+    snippet: "${1:elements}.includes(${2:el}, ${3:start})$4",
     type: ".includes",
     description: "Checks if an array or string includes a specific element",
     fileTypes: ["jsx", "tsx", "javascript"],
