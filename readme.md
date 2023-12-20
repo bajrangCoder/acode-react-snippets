@@ -5,13 +5,26 @@ This Acode plugin provides a collection of ES7+ React/Redux snippets to enhance 
 > [!NOTE]
 > This plugin also adds docs for snippet but that will only visible with the future update of Acode
 
-> [!NOTE]
-> Update v1.0.1: added a html to jsx converter 
+<details>
+  <summary>Updates 💥</summary>
+  <details>
+    <summary><code>v1.0.1</code></summary>
+
+    added a html to jsx converter 
+  </details>
+  <details>
+    <summary><code>v1.0.2</code></summary>
+
+    - Updated docs
+    - added more javascript related snippets by @ezeaniiandrew
+    
+  </details>
+</details>
 
 ## Features
 
 - Comprehensive snippets for React, Redux, and Typescript development in ES7+ syntax.
-- Works specifically in `.jsx` and `.tsx` files.
+- Works specifically in `.jsx` and `.tsx` files but some javascript syntax also works in javascript mode
 - built-in html to jsx converter
 
 ## Usage
@@ -20,7 +33,7 @@ This Acode plugin provides a collection of ES7+ React/Redux snippets to enhance 
 2. Install this plugin to unlock a variety of React/Redux snippets.
 3. Open a `.jsx` or `.tsx` file and start typing the snippet prefix to trigger autocompletion.
 
-> Snippet docs 👉 [here](https://github.com/ults-io/vscode-react-javascript-snippets/blob/master/docs/Snippets.md)
+> Snippet docs 👉 [here](https://github.com/bajrangCoder/acode-react-snippets/blob/main/docs/Snippets.md)
 
 ## How to Use HTML2JSX converter?
 
@@ -33,6 +46,8 @@ Feel free to contribute by submitting bug reports, feature requests, or addition
 ## Special Thanks
 
 - [MatrixCoder](https://github.com/matrixcoder) for contributing in Snippet. <a href="https://www.buymeacoffee.com/MatrixCoder" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Pizza" style="height: 30px !important;width: 100px !important;" ></a>
+
+- [@ezeaniiandrew](https://github.com/ezeaniiandrew) for contributing in javascript snippets
 
 - [VS Code ES7+ React/Redux/React-Native/JS snippets](https://github.com/ults-io/vscode-react-javascript-snippets/) for inspiration.
 
