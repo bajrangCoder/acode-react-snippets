@@ -3,7 +3,7 @@
 This Acode plugin provides a collection of ES7+ React/Redux snippets to enhance your development workflow on mobile. Special thanks to MatrixCoder for contributing to snippet content. Inspiration for this plugin is drawn from the VS Code ES7+ React/Redux/React-Native/JS snippets extension.
 
 > [!NOTE]
-> This plugin also adds docs for snippet but that will only visible with the future update of Acode
+> This plugin also adds docs for snippet
 
 <details>
   <summary>Updates 💥</summary>
@@ -17,7 +17,7 @@ This Acode plugin provides a collection of ES7+ React/Redux snippets to enhance 
 
     - Updated docs
     - added more javascript related snippets by @ezeaniiandrew
-    
+    - added a setting to enable snippet docs
   </details>
 </details>
 

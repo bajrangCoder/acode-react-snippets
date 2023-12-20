@@ -3,6 +3,7 @@ import { getCurrentFileType, htmltojsx } from "./helpers";
 import { snippets, Snippet } from "./snippets";
 const { snippetManager } = ace.require("ace/snippets");
 const selectionMenu = acode.require('selectionMenu');
+const appSettings = acode.require("settings");
 const { editor } = editorManager;
 
 declare var extraSyntaxHighlightsInstalled: boolean;
@@ -14,6 +15,12 @@ class ReactSnippet {
     constructor() {
         this.setVariables();
         this.initializeAutocompletion(snippets || []);
+        if (!appSettings.value[plugin.id]) {
+            appSettings.value[plugin.id] = {
+                snippetDocs: false,
+            };
+            appSettings.update(false);
+        }
     }
 
     private setVariables() {
@@ -87,17 +94,20 @@ class ReactSnippet {
         cacheFile: any,
         cacheFileUrl: string
     ): Promise<void> {
-        /*const styling = document.createElement("style");
-        styling.innerHTML = `
-        .ace_tooltip.ace_doc-tooltip {
-            display: flex !important;
-            background-color: var(--secondary-color);
-            color: var(--secondary-text-color);
-            max-width: 68%;
-            white-space: pre-wrap;
+        if(this.settings.snippetDocs){
+            const styling = document.createElement("style");
+            styling.id = "overideCompletionDocs";
+            styling.innerHTML = `
+            .ace_tooltip.ace_doc-tooltip {
+                display: flex !important;
+                background-color: var(--secondary-color);
+                color: var(--secondary-text-color);
+                max-width: 68%;
+                white-space: pre-wrap;
+            }
+            `;
+            document.head.append(styling);
         }
-        `;
-        document.head.append(styling);*/
         acode.addIcon("react-snippet-icon", this.baseUrl + "icon.png");
         selectionMenu.add(this.convertToJsx.bind(this), 'JSX', 'selected');
     }
@@ -109,12 +119,50 @@ class ReactSnippet {
         editor.getSession().replace(selectionRange, convertedTxt);
         window.toast("Converted 💥", 3000);
     }
+    
+    public get settingsObj() {
+        return {
+            list: [
+                {
+                    key: "snippetDocs",
+                    text: "Enable snippet docs",
+                    checkbox: !!this.settings.snippetDocs,
+                    info: `To show brief docs about the snippets`,
+                }
+            ],
+            cb: (key: string, value: boolean | string) => {
+                this.settings[key] = value;
+                appSettings.update();
+                if(value==true){
+                    const styling = document.createElement("style");
+                    styling.id = "overideCompletionDocs";
+                    styling.innerHTML = `
+                    .ace_tooltip.ace_doc-tooltip {
+                        display: flex !important;
+                        background-color: var(--secondary-color);
+                        color: var(--secondary-text-color);
+                        max-width: 68%;
+                        white-space: pre-wrap;
+                    }
+                    `;
+                    document.head.append(styling);
+                } else if(value==false){
+                    document.querySelector("overideCompletionDocs").remove();
+                }
+            },
+        }
+    }
+
+    private get settings() {
+        return appSettings.value[plugin.id];
+    }
 
     async destroy() {
         editor.completers.splice(
             editor.completers.indexOf(this.reactCompleter),
             1
         );
+        document.querySelector("overideCompletionDocs").remove();
     }
 }
 
@@ -132,7 +180,8 @@ if (window.acode) {
             }
             acodePlugin.baseUrl = baseUrl;
             await acodePlugin.init($page, cacheFile, cacheFileUrl);
-        }
+        },
+        acodePlugin.settingsObj
     );
     acode.setPluginUnmount(plugin.id, () => {
         acodePlugin.destroy();
