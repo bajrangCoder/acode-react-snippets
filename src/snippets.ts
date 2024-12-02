@@ -12,7 +12,7 @@ export const snippets: Snippet[] = [
   {
     prefix: "rcc",
     snippet:
-      "import React, { Component } from 'react'\n\nexport default class ${FILE_NAME} extends Component {\n  render() {\n    return (\n    <div>$1</div>\n  )\n}\n",
+      "import React, { Component } from 'react'\n\nexport default class ${FILE_NAME} extends Component {\n  render() {\n    return (\n    <div>$1</div>\n  )\n}\n}",
     type: "Components",
     description:
       "Creates a <strong>React component</strong> class with ES7 module system",
