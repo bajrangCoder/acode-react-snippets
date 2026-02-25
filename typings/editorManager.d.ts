@@ -4,6 +4,7 @@ type FileEvent = "switch-file" | "rename-file" | "save-file" | "file-loaded" | "
 
 interface EditorManager {
     editor: AceAjax.Editor;
+    isCodeMirror?: boolean;
     getFile(checkFor: string | number, type: "id" | "name" | "uri"): EditorFile;
     addFile(file: EditorFile): void;
     switchFile(id: string): void;

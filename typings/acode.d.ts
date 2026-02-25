@@ -18,7 +18,7 @@ interface WCPage extends HTMLElement {
   get innerHTML(): string;
   set innerHTML(html: string);
 
-  get textContent(): string | null;
+  get textContent(): string;
   set textContent(text: string);
 
   get lead(): HTMLElement;
