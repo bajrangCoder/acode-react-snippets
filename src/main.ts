@@ -1,12 +1,38 @@
 import plugin from "../plugin.json";
 import { getCurrentFileType, htmltojsx } from "./helpers";
 import { snippets, Snippet } from "./snippets";
+import {
+    codeMirrorSnippets,
+    CodeMirrorSnippet,
+    CODEMIRROR_FILE_NAME_TOKEN,
+} from "./codemirrorSnippets";
 
 const selectionMenu = acode.require("selectionMenu");
 const appSettings = acode.require("settings");
 
 const ACE_DOC_STYLE_ID = "overideCompletionDocs";
 const CM_COMPLETION_STYLE_ID = "reactSnippetCodeMirrorStyles";
+const CODEMIRROR_DONT_COMPLETE = [
+    "TemplateString",
+    "String",
+    "RegExp",
+    "LineComment",
+    "BlockComment",
+    "VariableDefinition",
+    "TypeDefinition",
+    "Label",
+    "PropertyDefinition",
+    "PropertyName",
+    "PrivatePropertyDefinition",
+    "PrivatePropertyName",
+    "JSXText",
+    "JSXAttributeValue",
+    "JSXOpenTag",
+    "JSXCloseTag",
+    "JSXSelfClosingTag",
+    ".",
+    "?.",
+];
 
 function getAceSnippetManager(): any {
     try {
@@ -21,25 +47,53 @@ function getAceSnippetManager(): any {
 
 const aceSnippetManager = getAceSnippetManager();
 
-declare var extraSyntaxHighlightsInstalled: boolean;
+function getCodeMirrorAutocompleteApi(): any {
+    try {
+        return (
+            acode.require("@codemirror/autocomplete") ||
+            acode.require("codemirror")?.autocomplete ||
+            null
+        );
+    } catch {
+        try {
+            return acode.require("codemirror")?.autocomplete || null;
+        } catch {
+            return null;
+        }
+    }
+}
 
-type CodeMirrorCompletionContext = {
-    pos: number;
-    explicit: boolean;
-    matchBefore: (expression: RegExp) => { from: number; to: number } | null;
-};
+function getCodeMirrorStateApi(): any {
+    try {
+        return (
+            acode.require("@codemirror/state") ||
+            acode.require("codemirror")?.state ||
+            null
+        );
+    } catch {
+        try {
+            return acode.require("codemirror")?.state || null;
+        } catch {
+            return null;
+        }
+    }
+}
+
+declare var extraSyntaxHighlightsInstalled: boolean;
 
 class ReactSnippet {
     public baseUrl: string | undefined;
 
     private reactCompleter: any = null;
     private sourceSnippets: Snippet[] = [];
+    private codeMirrorSourceSnippets: CodeMirrorSnippet[] = [];
 
     private codeMirrorCompletionCompartment: any = null;
     private hasCodeMirrorCompletionAttached = false;
     private attachedCodeMirrorState: any = null;
-    private hasCodeMirrorListeners = false;
+    private hasEditorLifecycleListeners = false;
     private codeMirrorAttachTimers: ReturnType<typeof setTimeout>[] = [];
+    private readonly codeMirrorSourceCache = new Map<string, any>();
 
     private autocompletionInitialized = false;
 
@@ -49,34 +103,12 @@ class ReactSnippet {
     ];
 
     private readonly onCodeMirrorLifecycleChange = () => {
-        this.configureCodeMirrorAutocompletion();
+        this.syncAutocompletionForCurrentEditor();
     };
 
-    private readonly codeMirrorCompletionSource = (
-        context: CodeMirrorCompletionContext
-    ) => {
-        const currentFileType = getCurrentFileType();
-        const relevantSnippets = this.getRelevantSnippets(currentFileType);
-
-        if (!relevantSnippets.length) {
-            return null;
-        }
-
-        const typedWord = context.matchBefore?.(/[\w$-]*/);
-        if (typedWord && typedWord.from === typedWord.to && !context.explicit) {
-            return null;
-        }
-        if (!typedWord && !context.explicit) {
-            return null;
-        }
-
-        return {
-            from: typedWord ? typedWord.from : context.pos,
-            options: relevantSnippets.map(snippet =>
-                this.mapCodeMirrorCompletion(snippet)
-            ),
-            validFor: /^[\w$-]*$/,
-        };
+    private readonly codeMirrorCompletionSource = (context: any) => {
+        const completionSource = this.createCodeMirrorCompletionSource();
+        return completionSource ? completionSource(context) : null;
     };
 
     constructor() {
@@ -117,11 +149,14 @@ class ReactSnippet {
         return Array.from(aliases);
     }
 
-    private getRelevantSnippets(fileType?: string): Snippet[] {
+    private getRelevantSnippets<T extends { fileTypes: string[] }>(
+        sourceSnippets: T[],
+        fileType?: string
+    ): T[] {
         const currentFileType = (fileType || getCurrentFileType()).toLowerCase();
         const aliases = this.getTypeAliases(currentFileType);
 
-        return this.sourceSnippets.filter(snippet =>
+        return sourceSnippets.filter(snippet =>
             snippet.fileTypes.some(type => aliases.includes(type.toLowerCase()))
         );
     }
@@ -165,7 +200,10 @@ class ReactSnippet {
                 callback: (err: any, results: AceAjax.Completion[]) => void
             ) => {
                 const currentFileType = getCurrentFileType(session);
-                const relevantSnippets = this.getRelevantSnippets(currentFileType);
+                const relevantSnippets = this.getRelevantSnippets(
+                    this.sourceSnippets,
+                    currentFileType
+                );
 
                 callback(
                     null,
@@ -206,17 +244,25 @@ class ReactSnippet {
         };
     }
 
-    private expandSnippetForCodeMirror(template: string): string {
-        return template
-            .replace(/\$\{FILE_NAME\}/g, this.fileNameWithoutExtension)
-            .replace(/\$\{(\d+):([^}]*)\}/g, "$2")
-            .replace(/\$\{(\d+)\}/g, "")
-            .replace(/\$([0-9]+)/g, "")
-            .replace(/\$\{([^}:]+)\}/g, "$1");
+    private getCodeMirrorCompletionCacheKey(fileType: string): string {
+        return [
+            fileType.toLowerCase(),
+            this.fileNameWithoutExtension,
+            this.settings.snippetDocs ? "docs" : "nodocs",
+        ].join("|");
     }
 
-    private mapCodeMirrorCompletion(snippet: Snippet): any {
-        return {
+    private resolveCodeMirrorTemplate(template: string): string {
+        return template
+            .split(CODEMIRROR_FILE_NAME_TOKEN)
+            .join(this.fileNameWithoutExtension);
+    }
+
+    private mapCodeMirrorCompletion(
+        snippet: CodeMirrorSnippet,
+        snippetCompletion?: any
+    ): any {
+        const completion = {
             label: snippet.prefix,
             type: "react-snippet",
             detail: snippet.type,
@@ -224,9 +270,27 @@ class ReactSnippet {
                 snippet.description && {
                     info: this.createCodeMirrorInfo(snippet.description),
                 }),
+        };
+
+        if (typeof snippetCompletion === "function") {
+            try {
+                return snippetCompletion(
+                    this.resolveCodeMirrorTemplate(snippet.codeMirrorSnippet),
+                    completion
+                );
+            } catch (error) {
+                console.warn(
+                    `Failed to create CodeMirror snippet completion for ${snippet.prefix}`,
+                    error
+                );
+            }
+        }
+
+        return {
+            ...completion,
             apply: (view: any, _completion: any, from: number, to: number) => {
-                const expandedSnippet = this.expandSnippetForCodeMirror(
-                    snippet.snippet
+                const expandedSnippet = this.resolveCodeMirrorTemplate(
+                    snippet.fallbackSnippet
                 );
                 view.dispatch({
                     changes: { from, to, insert: expandedSnippet },
@@ -235,28 +299,78 @@ class ReactSnippet {
                         head: from + expandedSnippet.length
                     }
                 });
-            }
+            },
         };
     }
 
-    private addCodeMirrorLifecycleListeners() {
-        if (this.hasCodeMirrorListeners) {
+    private buildCodeMirrorCompletionSource(fileType: string): any {
+        const autocompleteApi = getCodeMirrorAutocompleteApi();
+        const relevantSnippets = this.getRelevantSnippets(
+            this.codeMirrorSourceSnippets,
+            fileType
+        );
+
+        if (
+            !autocompleteApi ||
+            !relevantSnippets.length ||
+            typeof autocompleteApi.completeFromList !== "function"
+        ) {
+            return null;
+        }
+
+        const completions = relevantSnippets.map(snippet =>
+            this.mapCodeMirrorCompletion(
+                snippet,
+                autocompleteApi.snippetCompletion
+            )
+        );
+
+        let completionSource = autocompleteApi.completeFromList(completions);
+        if (typeof autocompleteApi.ifNotIn === "function") {
+            completionSource = autocompleteApi.ifNotIn(
+                CODEMIRROR_DONT_COMPLETE,
+                completionSource
+            );
+        }
+
+        return completionSource;
+    }
+
+    private createCodeMirrorCompletionSource(): any {
+        const currentFileType = getCurrentFileType();
+        const cacheKey = this.getCodeMirrorCompletionCacheKey(currentFileType);
+        const cachedSource = this.codeMirrorSourceCache.get(cacheKey);
+        if (cachedSource) {
+            return cachedSource;
+        }
+
+        const completionSource = this.buildCodeMirrorCompletionSource(currentFileType);
+        if (!completionSource) {
+            return null;
+        }
+
+        this.codeMirrorSourceCache.set(cacheKey, completionSource);
+        return completionSource;
+    }
+
+    private addEditorLifecycleListeners() {
+        if (this.hasEditorLifecycleListeners) {
             return;
         }
         this.codeMirrorLifecycleEvents.forEach(eventName => {
             editorManager.on(eventName, this.onCodeMirrorLifecycleChange);
         });
-        this.hasCodeMirrorListeners = true;
+        this.hasEditorLifecycleListeners = true;
     }
 
-    private removeCodeMirrorLifecycleListeners() {
-        if (!this.hasCodeMirrorListeners) {
+    private removeEditorLifecycleListeners() {
+        if (!this.hasEditorLifecycleListeners) {
             return;
         }
         this.codeMirrorLifecycleEvents.forEach(eventName => {
             editorManager.off(eventName, this.onCodeMirrorLifecycleChange);
         });
-        this.hasCodeMirrorListeners = false;
+        this.hasEditorLifecycleListeners = false;
     }
 
     private clearCodeMirrorAttachTimers() {
@@ -264,11 +378,11 @@ class ReactSnippet {
         this.codeMirrorAttachTimers = [];
     }
 
-    private queueInitialCodeMirrorAttach() {
+    private queueInitialAutocompletionSync() {
         this.clearCodeMirrorAttachTimers();
-        [0, 300, 900].forEach(delay => {
+        [0, 300, 900, 1800, 3500, 7000].forEach(delay => {
             const timer = setTimeout(() => {
-                this.configureCodeMirrorAutocompletion();
+                this.syncAutocompletionForCurrentEditor();
             }, delay);
             this.codeMirrorAttachTimers.push(timer);
         });
@@ -276,39 +390,31 @@ class ReactSnippet {
 
     private configureCodeMirrorAutocompletion() {
         const editor = this.editorInstance;
-        const readOnlyCompartment = (editorManager as any)?.readOnlyCompartment;
+        const codeMirrorState = getCodeMirrorStateApi();
+        const EditorState = codeMirrorState?.EditorState;
+        const StateEffect = codeMirrorState?.StateEffect;
+        const Compartment = codeMirrorState?.Compartment;
 
-        if (!editor?.state || !editor?.dispatch) {
+        if (
+            !editor?.state ||
+            !editor?.dispatch ||
+            !EditorState?.languageData?.of ||
+            !StateEffect?.appendConfig?.of ||
+            !Compartment
+        ) {
             return;
         }
 
-        const languageDataFacet = editor.state.constructor?.languageData;
-        const reconfigureProbe = readOnlyCompartment?.reconfigure?.([]);
-        const appendConfigEffect = reconfigureProbe?.constructor?.appendConfig;
-        const compartmentClass = readOnlyCompartment?.constructor;
-
-        if (!languageDataFacet?.of || !appendConfigEffect?.of) {
-            return;
-        }
-
-        const extension = languageDataFacet.of(() => [
+        const extension = EditorState.languageData.of(() => [
             { autocomplete: this.codeMirrorCompletionSource },
         ]);
 
-        if (!compartmentClass) {
-            if (this.attachedCodeMirrorState === editor.state) {
-                return;
-            }
-            editor.dispatch({
-                effects: appendConfigEffect.of(extension),
-            });
-            this.attachedCodeMirrorState = editor.state;
-            this.hasCodeMirrorCompletionAttached = true;
-            return;
+        if (!this.codeMirrorCompletionCompartment) {
+            this.codeMirrorCompletionCompartment = new Compartment();
         }
 
-        if (!this.codeMirrorCompletionCompartment) {
-            this.codeMirrorCompletionCompartment = new compartmentClass();
+        if (this.attachedCodeMirrorState !== editor.state) {
+            this.hasCodeMirrorCompletionAttached = false;
         }
 
         if (this.hasCodeMirrorCompletionAttached) {
@@ -326,7 +432,7 @@ class ReactSnippet {
         }
 
         editor.dispatch({
-            effects: appendConfigEffect.of(
+            effects: StateEffect.appendConfig.of(
                 this.codeMirrorCompletionCompartment.of(extension)
             ),
         });
@@ -364,23 +470,27 @@ class ReactSnippet {
 
     private initializeCodeMirrorAutocompletion(): void {
         this.removeAceAutocompletion();
-        this.addCodeMirrorLifecycleListeners();
         this.configureCodeMirrorAutocompletion();
-        this.queueInitialCodeMirrorAttach();
     }
 
-    private initializeAutocompletion(sourceSnippets: Snippet[] | []): void {
-        this.sourceSnippets = [...sourceSnippets];
-
+    private syncAutocompletionForCurrentEditor(): void {
         if (this.isCodeMirrorEditor) {
             this.initializeCodeMirrorAutocompletion();
             return;
         }
 
-        this.removeCodeMirrorLifecycleListeners();
         this.clearCodeMirrorAttachTimers();
         this.removeCodeMirrorAutocompletion();
         this.initializeAceAutocompletion();
+    }
+
+    private initializeAutocompletion(sourceSnippets: Snippet[] | []): void {
+        this.sourceSnippets = [...sourceSnippets];
+        this.codeMirrorSourceSnippets = [...codeMirrorSnippets];
+        this.codeMirrorSourceCache.clear();
+        this.addEditorLifecycleListeners();
+        this.syncAutocompletionForCurrentEditor();
+        this.queueInitialAutocompletionSync();
     }
 
     private setStyle(styleId: string, content: string): void {
@@ -446,8 +556,9 @@ class ReactSnippet {
         if (!this.autocompletionInitialized) {
             this.initializeAutocompletion(snippets || []);
             this.autocompletionInitialized = true;
-        } else if (this.isCodeMirrorEditor) {
-            this.configureCodeMirrorAutocompletion();
+        } else {
+            this.syncAutocompletionForCurrentEditor();
+            this.queueInitialAutocompletionSync();
         }
 
         this.syncCompletionStyles();
@@ -496,6 +607,10 @@ class ReactSnippet {
                 appSettings.update();
 
                 if (key === "snippetDocs") {
+                    this.codeMirrorSourceCache.clear();
+                    if (this.isCodeMirrorEditor) {
+                        this.configureCodeMirrorAutocompletion();
+                    }
                     this.syncCompletionStyles();
                 }
             },
@@ -508,7 +623,7 @@ class ReactSnippet {
 
     async destroy() {
         this.removeAceAutocompletion();
-        this.removeCodeMirrorLifecycleListeners();
+        this.removeEditorLifecycleListeners();
         this.clearCodeMirrorAttachTimers();
         this.removeCodeMirrorAutocompletion();
 
