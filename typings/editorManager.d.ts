@@ -13,8 +13,8 @@ interface EditorManager {
     files: Array<EditorFile>;
     container: HTMLElement;
     isScrolling: boolean;
-    on(event: FileEvent, callback: () => void): void;
-    off(event: FileEvent, callback: () => void): void;
+    on(event: FileEvent, callback: (...args: any[]) => void): void;
+    off(event: FileEvent, callback: (...args: any[]) => void): void;
     emit(event: FileEvent, ...args: any[]): any;
 }
 
