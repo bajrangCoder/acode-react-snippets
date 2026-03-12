@@ -102,7 +102,10 @@ class ReactSnippet {
         "file-loaded",
     ];
 
-    private readonly onCodeMirrorLifecycleChange = () => {
+  private readonly onCodeMirrorLifecycleChange = (f: EditorFile) => {
+        if (!f.type || f.type !== "editor") {
+            return;
+        };
         this.syncAutocompletionForCurrentEditor();
     };
 
@@ -405,6 +408,10 @@ class ReactSnippet {
             return;
         }
 
+        if (this.attachedCodeMirrorState === editor.state && this.hasCodeMirrorCompletionAttached) {
+            return;
+        }
+
         const extension = EditorState.languageData.of(() => [
             { autocomplete: this.codeMirrorCompletionSource },
         ]);
@@ -476,6 +483,7 @@ class ReactSnippet {
     private syncAutocompletionForCurrentEditor(): void {
         if (this.isCodeMirrorEditor) {
             this.initializeCodeMirrorAutocompletion();
+            this.clearCodeMirrorAttachTimers();
             return;
         }
 

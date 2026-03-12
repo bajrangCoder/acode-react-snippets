@@ -10,6 +10,7 @@ declare class EditorFile {
   encoding: string;
   readOnly: boolean;
   markChanged: boolean;
+  type: string;
 
   constructor(filename?: string, options?: FileOptions);
 
